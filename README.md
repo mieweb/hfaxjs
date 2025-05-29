@@ -1,13 +1,13 @@
-# Fastify-HylaFax Gateway
+# Fastify-HylaFAX+ Gateway
 
-A modern Node.js bridge between web applications and HylaFax servers, allowing for seamless fax transmission from web-based applications.
+A modern Node.js bridge between web applications and HylaFAX+ servers, allowing for seamless fax transmission from web-based applications.
 
 ## Overview
 
-This server acts as a middleware between client applications and a HylaFax fax server. It enables:
+This server acts as a middleware between client applications and a HylaFAX+ fax server. It enables:
 
 - Converting various document formats (text, Markdown, HTML) into faxable formats (PDF, TIFF)
-- Submitting faxes to a HylaFax server
+- Submitting faxes to a HylaFAX+ server
 - Handling callback notifications for fax status updates
 - Forwarding status updates to client applications
 
@@ -68,7 +68,7 @@ This endpoint receives updates from the HylaFax server about fax job statuses an
 
 ### Prerequisites
 - Node.js 18.x or higher
-- HylaFax server setup and configured
+- HylaFAX+ server setup and configured
 - Dependencies for document conversion (see package.json)
 
 ### Setup
@@ -152,3 +152,30 @@ npm test
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Additional Resources
+
+- [Getting Started Guide](docs/getting-started.md) - Detailed instructions for setting up and using the gateway
+- [Example Code](examples/) - Sample code for sending faxes and integrating with your application
+- [API Collection](docs/postman-collection.json) - Postman collection for testing the API
+- [Docker Support](Dockerfile) - Containerize the application for easy deployment
+- [Tests](test/) - Test cases demonstrating the functionality
+
+## Quick Start with Docker
+
+The fastest way to get started is using Docker Compose:
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/fastify-hylafax-gateway.git
+cd fastify-hylafax-gateway
+
+# Configure your API keys and HylaFax server details
+cp src/.env.example .env
+nano .env
+
+# Start the container
+docker-compose up -d
+```
+
+Visit http://localhost:3000/documentation to see the API documentation.

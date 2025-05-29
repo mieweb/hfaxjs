@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  faxgateway:
+    build: .
+    container_name: fastify-hylafax-gateway
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/data/faxjsgw
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - API_KEYS=${API_KEYS:-api-key-1,api-key-2}
+      - HYLAFAX_HOST=${HYLAFAX_HOST:-faxserver.example.com}
+      - HYLAFAX_PORT=${HYLAFAX_PORT:-4559}
+      - HYLAFAX_USER=${HYLAFAX_USER:-faxuser}
+      - HYLAFAX_PASSWORD=${HYLAFAX_PASSWORD:-faxpass}
+      - MAX_RETRIES=${MAX_RETRIES:-12}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - STORAGE_DIR=/data/faxjsgw
+    networks:
+      - faxnet
+
+networks:
+  faxnet:
+    driver: bridge

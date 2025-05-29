@@ -1,0 +1,187 @@
+{
+  "info": {
+    "_postman_id": "8f9b3e7a-2c32-4b4f-a8f5-6d9e0e4c972d",
+    "name": "Fastify-HylaFax Gateway",
+    "description": "API collection for interacting with the Fastify-HylaFax Gateway",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the server is running properly."
+      },
+      "response": []
+    },
+    {
+      "name": "Send Fax (Text)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sender\": {\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"id\": \"client-123\"\n  },\n  \"recipient\": {\n    \"name\": \"Jane Smith\",\n    \"faxNumber\": \"+15551234567\"\n  },\n  \"content\": {\n    \"type\": \"text\",\n    \"data\": \"This is a sample fax message.\\n\\nRegards,\\nJohn Doe\"\n  },\n  \"callbackUrl\": \"https://example.com/fax/status\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/fax/send",
+          "host": ["{{baseUrl}}"],
+          "path": ["fax", "send"]
+        },
+        "description": "Send a text fax message."
+      },
+      "response": []
+    },
+    {
+      "name": "Send Fax (Markdown)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sender\": {\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"id\": \"client-123\"\n  },\n  \"recipient\": {\n    \"name\": \"Jane Smith\",\n    \"faxNumber\": \"+15551234567\"\n  },\n  \"content\": {\n    \"type\": \"markdown\",\n    \"data\": \"# Sample Fax\\n\\nThis is a **sample** fax message in *markdown* format.\\n\\n## Items\\n\\n- Item 1\\n- Item 2\\n- Item 3\\n\\nRegards,\\nJohn Doe\"\n  },\n  \"callbackUrl\": \"https://example.com/fax/status\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/fax/send",
+          "host": ["{{baseUrl}}"],
+          "path": ["fax", "send"]
+        },
+        "description": "Send a markdown-formatted fax message."
+      },
+      "response": []
+    },
+    {
+      "name": "Send Fax (HTML)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sender\": {\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"id\": \"client-123\"\n  },\n  \"recipient\": {\n    \"name\": \"Jane Smith\",\n    \"faxNumber\": \"+15551234567\"\n  },\n  \"content\": {\n    \"type\": \"html\",\n    \"data\": \"<html><body><h1>Sample Fax</h1><p>This is a <strong>sample</strong> fax message in <em>HTML</em> format.</p><h2>Items</h2><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><p>Regards,<br>John Doe</p></body></html>\"\n  },\n  \"callbackUrl\": \"https://example.com/fax/status\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/fax/send",
+          "host": ["{{baseUrl}}"],
+          "path": ["fax", "send"]
+        },
+        "description": "Send an HTML-formatted fax message."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Fax Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fax/status/{{jobId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["fax", "status", "{{jobId}}"]
+        },
+        "description": "Get the status of a fax job."
+      },
+      "response": []
+    },
+    {
+      "name": "Status Update (Webhook)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"jobId\": \"12345\",\n  \"status\": \"success\",\n  \"pages\": 2,\n  \"timestamp\": \"2023-06-01T15:30:00Z\",\n  \"message\": \"Fax sent successfully\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/fax/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["fax", "status"]
+        },
+        "description": "Simulate a HylaFax status update (for testing)."
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "your-api-key",
+      "type": "string"
+    },
+    {
+      "key": "jobId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
